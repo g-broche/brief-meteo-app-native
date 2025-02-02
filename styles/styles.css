@@ -1,0 +1,25 @@
+/*
+    ***** LOADER *****
+*/
+
+.loader-circle-wrapper{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader-circle {
+    border: 16px solid #d5d5d5;
+    border-top: 16px solid #12517b;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

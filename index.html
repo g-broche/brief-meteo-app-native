@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="styles/styles.css">
+    <script defer type="module" src="scripts/meteo.js"></script>
+    <title>Weather App</title>
+</head>
+
+<body>
+    <main id="meteo-card">
+        <header>
+            <h1 id="meteo-card-title"></h1>
+        </header>
+        <section id="info-display">
+            <div class="time-display-wrapper">
+                <span id="clock"></span>
+            </div>
+            <div id="content-wrapper">
+                <div id="loader-wrapper">
+                    <div class="loader-circle"></div>
+                </div>
+                <div id="meteo-details">
+                    <span id="temperature"></span>
+                    <div class="weather-details">
+                        <img id="weather-icon">
+                        <span id="weather-text"></span>
+                    </div>
+                    <span id="humidity"></span>
+                    <span id="wind"></span>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>
