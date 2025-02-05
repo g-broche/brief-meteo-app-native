@@ -68,7 +68,7 @@ export class ApiService{
                         message: "Error: an error occured while requesting the API"
                     }
                 );
-                this.triggerCallbackAfterFetch(responseFailedAttempt);
+                this.triggerCallbackAfterFetch(responseResult);
                 return
             }
             fetchedData = await response.json();

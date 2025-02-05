@@ -1,5 +1,5 @@
 {
-    "apiEndpoint": "https://api.open-meteo.com/v1/fore",
+    "apiEndpoint": "https://api.open-meteo.com/v1/forecast",
     "apiOptions": {
         "current": [
             "temperature_2m",
@@ -10,6 +10,7 @@
             "wind_direction_10m"
         ]
     },
+    "retryDelayAfterFailedFetch": 60000,
     "location": {
         "cityLatitude": 45.1787,
         "cityLongitude": 5.7148,

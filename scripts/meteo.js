@@ -37,6 +37,14 @@ const run = async function(){
     const handleApiResponse = (apiResponse) => {
         console.log("api response : ", apiResponse);
         DISPLAY_SERVICE.refreshInformationDisplay(apiResponse, CONFIG_SERVICE.getWeatherConverionTable());
+        if(apiResponse && !apiResponse.isSuccess()){
+            //using delay before new attempt based on config settings with fallback in case of undefined value
+            const retryDelay = CONFIG_SERVICE.getRetryDelay() ?? 60000;
+            console.log(`attempting new fetch after failed attempt in ${retryDelay/1000}s`);
+            setTimeout(() => {
+                API_SERVICE.fetchData();
+            }, retryDelay)
+        }
     };
 
     const API_SERVICE = new ApiService(

@@ -7,6 +7,7 @@ export class ConfigService{
     #configData = {
         apiEndpoint: null,
         apiOptions: null,
+        retryDelayAfterFailedFetch: null,
         location: null,
         weatherConversionTable: null,
     }
@@ -30,6 +31,7 @@ export class ConfigService{
             this.#configData = {
                 apiEndpoint: fetchedConfig.apiEndpoint,
                 apiOptions: fetchedConfig.apiOptions,
+                retryDelayAfterFailedFetch: fetchedConfig.retryDelayAfterFailedFetch,
                 location: fetchedConfig.location,
                 weatherConversionTable: fetchedConfig.weathers
             };
@@ -67,6 +69,10 @@ export class ConfigService{
 
     getApiOptions(){
         return this.#configData.apiOptions;
+    }
+
+    getRetryDelay(){
+        return this.#configData.retryDelayAfterFailedFetch;
     }
 
     getLocation(){
