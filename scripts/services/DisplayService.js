@@ -24,7 +24,7 @@ export class DisplayService{
 
     refreshInformationDisplay(apiResponse){
         if(!apiResponse.isSuccess()){
-            this.toggleFromWeatherToLoader(apiResponse.getMessage());
+            this.toggleFromWeatherToLoader("Service is temporary unavailable");
             return;
         }
         this.toggleFromLoaderToWeather(apiResponse.getData());

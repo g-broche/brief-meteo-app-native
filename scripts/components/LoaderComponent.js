@@ -29,7 +29,6 @@ export class LoaderComponent{
     }
     
     updateMessage(newMessage){
-        this.#childrenNode.message = newMessage;
         DomEditor.updateElementText(
             {
                 node: this.#childrenNode.message,

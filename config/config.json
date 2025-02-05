@@ -1,5 +1,5 @@
 {
-    "apiEndpoint": "https://api.open-meteo.com/v1/forecast",
+    "apiEndpoint": "https://api.open-meteo.com/v1/fore",
     "apiOptions": {
         "current": [
             "temperature_2m",

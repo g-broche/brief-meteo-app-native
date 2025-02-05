@@ -28,7 +28,7 @@ const run = async function(){
     );
     
     DISPLAY_SERVICE.displayTitle(`Weather in ${CONFIG_SERVICE.getCity()}`);
-    DISPLAY_SERVICE.displayLoader({message: "Loading weather informations"});
+    DISPLAY_SERVICE.displayLoader("Loading weather informations");
     DISPLAY_SERVICE.hideWeatherInfo();
     DISPLAY_SERVICE.appendChildrenToWrapper();
 
