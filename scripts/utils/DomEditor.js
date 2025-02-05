@@ -1,5 +1,8 @@
 "use strict";
 
+/**
+ * Utility class providing methods to interact with DOM content
+ */
 export class DomEditor{
     static createNewElement({htmlTag, id = null, classes = []}){
         const newElement = document.createElement(htmlTag);
@@ -9,12 +12,6 @@ export class DomEditor{
         if (classes && classes.length > 0){
             newElement.classList.add(...classes);
         }
-        return newElement;
-    }
-
-    static createNewElementWithInnerHTMLContent({htmlTag, id = null, classes = [], innerHTML=""}){
-        const newElement = this.createNewElement({htmlTag: htmlTag, id: id, classes: classes});
-        newElement.innerHTML = innerHTML;
         return newElement;
     }
 

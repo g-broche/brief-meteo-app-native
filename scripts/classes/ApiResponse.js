@@ -1,5 +1,8 @@
 "use strict";
 
+/**
+ * class providing an easy way to handle passing complex responses with states and data.
+ */
 export class ApiResponse{
     #success;
     #code;

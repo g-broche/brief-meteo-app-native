@@ -1,7 +1,18 @@
 "use strict";
 
+/**
+ * Utility class providing methods to parse and convert data
+ */
 export class Converter{
-
+    /**
+     * Returns the weather info used for display corresponding to a specific weather code
+     * 
+     * @param {Object} param0 argument container object
+     * @param {number} weatherCode weather code returned by the API
+     * @param {{Object.<string, {description: string, img: string}>}} conversionTable provided from the
+     * config file and mapping each weather code to its named description and associated image file name
+     * @returns {{description: string, img: string}} description and image name for the inputed code
+     */
     static weatherCodeToWeatherInfo({weatherCode, conversionTable}){
         if(!weatherCode){
             throw new Error("Error: Missing weather code on weather code to weather info conversion"); 
@@ -15,6 +26,14 @@ export class Converter{
         return conversionTable[weatherCode];
     }
 
+    /**
+     * Extract a time string from a date instance.
+     * 
+     * @param {Object} param0 argument container object
+     * @param {date} date date instance
+     * @param {string} format format required for output supports both hh:mm:ss and hh:mm
+     * @returns time string based on inputs
+     */
     static formatTime({date, format}){
         let formatedTime;
         let hours = date.getHours().toString();
@@ -38,6 +57,11 @@ export class Converter{
         return formatedTime;
     }
 
+    /**
+     * Convert and degree angle value into a cardinal direction
+     * @param {number} angle 
+     * @returns One or Two letter initials for the direction
+     */
     static degreeToDirection(angle){
         //considering  45° per direction with N starting at 360-45/2 and ending at 0+45/2
         const degreeToDirectionTable = [
@@ -64,6 +88,12 @@ export class Converter{
         }
     }
 
+    /**
+     * Extract the necessary data from the API response
+     * @param {Object} param0 wrapper object
+     * @param {Object} apiData Weather data returned by the API
+     * @returns 
+     */
     static apiDataToAppData({apiData}){
         if(!apiData){
             throw new Error("Error: Missing API data on API data to App data conversion"); 

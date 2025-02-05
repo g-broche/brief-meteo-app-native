@@ -3,7 +3,7 @@ import { DomEditor } from "../utils/DomEditor.js";
 import { Converter } from "../utils/Converter.js";
 
 /**
- * encompass values and DOM elements corresponding to all weather related data
+ * Encompass values and DOM elements corresponding to all weather related data
  * and provides methods to interact with such values and elements
  * 
  * manages the following DOM structure :
@@ -48,6 +48,12 @@ export class WeatherComponent {
             wind: null
         }
     };
+    /**
+     * Creates new instance and required DOM elements and structure
+     * 
+     * @param {{Object.<string, {description: string, img: string}>}} weatherConversionTable conversion table to map
+     * weather codes to their related info
+     */
     constructor(weatherConversionTable) {
         this.#weatherConversionTable = weatherConversionTable;
         this.#domElements = {
@@ -104,6 +110,17 @@ export class WeatherComponent {
         )
     }
 
+    /**
+     * Set the values corresponding to the weather data with a conversion step to convert the
+     * weather code into its related description and associated image name
+     * 
+     * @param {*} param0 object wrapper
+     * @param {number} temperature
+     * @param {number} weatherCode
+     * @param {number} humidity
+     * @param {number} windSpeed
+     * @param {number} windDirection
+     */
     setValues(
         {
             temperature,
@@ -126,10 +143,17 @@ export class WeatherComponent {
         }
     }
 
+    /**
+     * 
+     * @returns DOM wrapper element for the weather component
+     */
     getDomElement() {
         return this.#domElements.self;
     }
 
+    /**
+     * updates the weather display using the current weather info in this component values property
+     */
     updateDOM() {
         DomEditor.updateElementText(
             {

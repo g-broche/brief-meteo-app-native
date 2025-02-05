@@ -5,8 +5,14 @@ import { DisplayService } from "./services/DisplayService.js";
 import { Clock } from "./classes/Clock.js";
 import { WeatherComponent } from "./components/WeatherComponent.js";
 import { LoaderComponent } from "./components/LoaderComponent.js";
+import { ApiResponse } from "./classes/ApiResponse.js";
 
 const run = async function(){
+
+    /**
+     * Setting up required services and components
+     */
+
     const CONFIG_SERVICE = new ConfigService();
     const loadConfigResult = await CONFIG_SERVICE.loadConfig();
 
@@ -26,6 +32,11 @@ const run = async function(){
             weatherComponent: WEATHER_COMPONENT
         }
     );
+
+    /**
+     * initialize known information based on config, append dynamic components to the document
+     * and display initial state
+     */
     
     DISPLAY_SERVICE.displayTitle(`Weather in ${CONFIG_SERVICE.getCity()}`);
     DISPLAY_SERVICE.displayLoader("Loading weather informations");
@@ -34,6 +45,12 @@ const run = async function(){
 
     const API_PARAMETERS = CONFIG_SERVICE.getApiParameterArray();
 
+    /**
+     * Handle the API response it receives.
+     * In case of both success and failure will call DisplayService to toggle the appropriate display.
+     * In case of failure it will also trigger a new fetch attempt after a delay has passed.
+     * @param {ApiResponse} apiResponse state of the response given by ApiService after a fetch call
+     */
     const handleApiResponse = (apiResponse) => {
         console.log("api response : ", apiResponse);
         DISPLAY_SERVICE.refreshInformationDisplay(apiResponse, CONFIG_SERVICE.getWeatherConverionTable());

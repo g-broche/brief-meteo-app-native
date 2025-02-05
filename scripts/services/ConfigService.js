@@ -2,6 +2,10 @@
 import { ApiResponse } from "../classes/ApiResponse.js";
 import { ApiParameter } from "../classes/ApiParameter.js";
 
+/**
+ * Retrieves the config parameters of the application and provides getters to access the 
+ * different parameters
+ */
 export class ConfigService{
     #configFileLocation = "../../config/config.json"
     #configData = {
@@ -14,6 +18,10 @@ export class ConfigService{
     constructor(){
     }
 
+    /**
+     * Retrieve the config parameters and stores them in private class properties
+     * @returns ApiResponse instance indicating if the operation was successful 
+     */
     async loadConfig(){
         try{
             const response = await fetch(this.#configFileLocation);
@@ -56,7 +64,7 @@ export class ConfigService{
     }
 
     isConfigValid(configObject){
-        return configObject && configObject.apiEndpoint && configObject.location;
+        return configObject && configObject.apiEndpoint && configObject.location && configObject.weathers;
     }
 
     getLoadedConfig(){
@@ -87,6 +95,11 @@ export class ConfigService{
         return this.#configData.weatherConversionTable;
     }
 
+    /**
+     * Given an array, returns a string formed by concatenating all values with an added "," separator
+     * @param {string | string[]} values
+     * @returns string
+     */
     reduceOptionValues(values){
         if(!values instanceof Array){
             return values
@@ -97,6 +110,11 @@ export class ConfigService{
         },"")
     }
 
+    /**
+     * Creates an array based on the config file parameters necessary for the API endpoint in a way to
+     * easily associate the name of the parameter and its value by encompassing them inside an ApiParameter class
+     * @returns array of ApiParameters
+     */
     getApiParameterArray(){
         let parameters = [];
         const locationData = this.#configData.location;

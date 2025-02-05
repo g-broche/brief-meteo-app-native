@@ -2,6 +2,9 @@
 import { Converter } from "../utils/Converter.js";
 import { DomEditor } from "../utils/DomEditor.js";
 
+/**
+ * Class used to trigger events during the lifecyle of the application
+ */
 export class Clock{
     #domElement = null;
     #currentTime = null;
@@ -11,6 +14,12 @@ export class Clock{
     #isInitialized = false;
     #isSync = false;
     #callbackOnClockTrigger;
+    /**
+     * 
+     * @param {Object} param0 object wrapper
+     * @param {string} domElementId id of the html element used to display the current time 
+     * @param {function} param0 callback to execute when required
+     */
     constructor({domElementId, callbackOnClockTrigger}){
         this.#domElement = document.getElementById(domElementId);
         this.#callbackOnClockTrigger = callbackOnClockTrigger;
@@ -20,10 +29,16 @@ export class Clock{
         this.#tickerDelay = newValue;
     }
 
+    /**
+     * Handle the logic at every tick to update the time and refresh the weather data hourly if required
+     * @returns 
+     */
     handleTick(){
         this.#previousTime = this.#currentTime;
         this.#currentTime = new Date;
         if(!this.#isSync && this.#currentTime.getSeconds() === 0){
+            //while initially the ticker has a delay of 1s, this is not necessary in the long run. This part serves to
+            //change the ticker delay to 60sec when the system clock changes minute for the first time.
             console.log(`clock has sync at time ${this.#currentTime}`);
             this.setTickerDelay(60000);
             this.restartClockTicker();
@@ -45,17 +60,26 @@ export class Clock{
         }
     }
 
+    /**
+     * Cancels current interval and start a new one (for use if the delay must be changed)
+     */
     restartClockTicker(){
         clearInterval(this.#intervalId);
         this.startClockTicker();
     }
 
+    /**
+     * Starts interval ticker using tickerDelay property value for the delay
+     */
     startClockTicker(){
         this.#intervalId = setInterval(()=>{
             this.handleTick();
         }, this.#tickerDelay);
     }
 
+    /**
+     * update displayed time
+     */
     updateDisplayedTime(){
         const timeToDisplay = Converter.formatTime({date: this.#currentTime, format: "hh:mm"});
         DomEditor.updateElementText(

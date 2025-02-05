@@ -1,6 +1,9 @@
 "use strict";
 import { DomEditor } from "../utils/DomEditor.js";
 
+/**
+ * Service managing the display state of the dynamic components
+ */
 export class DisplayService{
     #domTitleElement;
     #domWrapperParent;
@@ -60,6 +63,9 @@ export class DisplayService{
         this.displayLoader(message);
     }
 
+    /**
+     * append the DOM elements of both loaderComponent and weatherComponent to the document
+     */
     appendChildrenToWrapper(){
         this.#domWrapperParent.append(this.loaderComponent.getDomElement(), this.weatherComponent.getDomElement());
     }

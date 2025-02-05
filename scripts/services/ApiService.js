@@ -2,6 +2,10 @@
 import { ApiResponse } from "../classes/ApiResponse.js";
 import { Converter } from "../utils/Converter.js";
 
+/**
+ * Service class used to contact the weather API, requires a callback function to trigger once the fetch
+ * attempt has either failed or been resolved
+ */
 export class ApiService{
     #apiEndpoint;
     #parameters;
@@ -27,7 +31,7 @@ export class ApiService{
     }
 
     /**
-     * constructs the url used to query the API based on the apiEndpoint and parameters property of this class
+     * Constructs the url used to query the API based on the apiEndpoint and parameters property of this class
      * @returns built url for fetching from API
      */
     buildRequestString(){
