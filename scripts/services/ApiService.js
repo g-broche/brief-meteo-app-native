@@ -34,7 +34,6 @@ export class ApiService{
         if (this.#parameters.length === 0) {
             return this.#apiEndpoint;
         }
-        console.log(this.#parameters)
         const parameterString = this.#parameters.reduce((builder, currentParameter, index) => {
             const newPart = index === 0
                 ? currentParameter.getUriParameterString()
@@ -53,6 +52,7 @@ export class ApiService{
      */
     async fetchData(){
         try {
+            console.log(`Attempting fetch on ${new Date}`);
             const requestUrl = this.buildRequestString();
             let hasFetchFailed = false;
             let fetchedData = null;

@@ -15,5 +15,123 @@
         "cityLongitude": 5.7148,
         "cityName": "Grenoble",
         "countryName": "France"
+    },
+    "weathers": {
+        "0" : {
+            "description": "Clear sky",
+            "img": "clear-sky.webp"
+        },
+        "1" : {
+            "description": "Mainly clear",
+            "img": "mainly-clear.webp"
+        },
+        "2" : {
+            "description": "Partly cloudy",
+            "img": "partly-cloudy.webp"
+        },
+        "3" : {
+            "description": "Overcast",
+            "img": "overcast.webp"
+        },
+        "45" : {
+            "description": "Fog",
+            "img": "fog.webp"
+        },
+        "48" : {
+            "description": "depositing rime fog",
+            "img": "fog.webp"
+        },
+        "51" : {
+            "description": "Light drizzle",
+            "img": "drizzle.webp"
+        },
+        "53" : {
+            "description": "Moderate drizzle",
+            "img": "drizzle.webp"
+        },
+        "55" : {
+            "description": "Dense drizzle",
+            "img": "drizzle.webp"
+        },
+        "56" : {
+            "description": "Light freezing drizzle",
+            "img": "clear-sky.webp"
+        },
+        "57" : {
+            "description": "Dense freezing drizzle",
+            "img": "clear-sky.webp"
+        },
+        "61" : {
+            "description": "Light rain",
+            "img": "rain.webp"
+        },
+        "63" : {
+            "description": "Moderate rain",
+            "img": "rain.webp"
+        },
+        "65" : {
+            "description": "Dense rain",
+            "img": "rain.webp"
+        },
+        "66" : {
+            "description": "Light freezing rain",
+            "img": "rain.webp"
+        },
+        "67" : {
+            "description": "Intense freezing rain",
+            "img": "rain.webp"
+        },
+        "71" : {
+            "description": "Slight snow fall",
+            "img": "snow.webp"
+        },
+        "73" : {
+            "description": "Moderate snow fall",
+            "img": "snow.webp"
+        },
+        "75" : {
+            "description": "Heavy snow fall",
+            "img": "snow.webp"
+        },
+        "77" : {
+            "description": "Snow grains",
+            "img": "snow.webp"
+        },
+        "80" : {
+            "description": "Slight rain showers",
+            "img": "rain-shower.webp"
+        },
+        "81" : {
+            "description": "Moderate rain showers",
+            "img": "rain-shower.webp"
+        },
+        "82" : {
+            "description": "Violent rain showers",
+            "img": "rain-shower.webp"
+        },
+        "85" : {
+            "description": "Slight snow showers",
+            "img": "snow.webp"
+        },
+        "86" : {
+            "description": "Heavy snow showers",
+            "img": "snow.webp"
+        },
+        "95" : {
+            "description": "Thunderstorm",
+            "img": "thunderstorm.webp"
+        },
+        "96" : {
+            "description": "Thunderstorm with slight hail",
+            "img": "thunderstorm-hail.webp"
+        },
+        "99" : {
+            "description": "Thunderstorm with heavy hail",
+            "img": "thunderstorm-hail.webp"
+        },
+        "error" : {
+            "description": "Unkown weather information",
+            "img": "missing-weather.webp"
+        }
     }
 }

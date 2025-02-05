@@ -8,8 +8,15 @@ import { LoaderComponent } from "./components/LoaderComponent.js";
 
 const run = async function(){
     const CONFIG_SERVICE = new ConfigService();
-    await CONFIG_SERVICE.loadConfig();
-    const WEATHER_COMPONENT = new WeatherComponent();
+    const loadConfigResult = await CONFIG_SERVICE.loadConfig();
+
+    if(!loadConfigResult.isSuccess()){
+        const message = loadConfigResult.getMessage() ?? "Could not load app config"
+        console.log(message)
+        throw new Error(message);
+    }
+
+    const WEATHER_COMPONENT = new WeatherComponent(CONFIG_SERVICE.getWeatherConverionTable());
     const LOADER_COMPONENT = new LoaderComponent();
     const DISPLAY_SERVICE = new DisplayService(
         {
@@ -19,21 +26,26 @@ const run = async function(){
             weatherComponent: WEATHER_COMPONENT
         }
     );
+    
     DISPLAY_SERVICE.displayTitle(`Weather in ${CONFIG_SERVICE.getCity()}`);
     DISPLAY_SERVICE.displayLoader({message: "Loading weather informations"});
-    DISPLAY_SERVICE.hideWeatherInfo({message: "Loading weather informations"});
+    DISPLAY_SERVICE.hideWeatherInfo();
     DISPLAY_SERVICE.appendChildrenToWrapper();
+
     const API_PARAMETERS = CONFIG_SERVICE.getApiParameterArray();
+
+    const handleApiResponse = (apiResponse) => {
+        console.log("api response : ", apiResponse);
+        DISPLAY_SERVICE.refreshInformationDisplay(apiResponse, CONFIG_SERVICE.getWeatherConverionTable());
+    };
+
     const API_SERVICE = new ApiService(
         {
             apiEndpoint: CONFIG_SERVICE.getApiEndpoint(),
             parameters: API_PARAMETERS,
-            callbackAfterFetchAction: (apiResponse) => {
-                console.log(apiResponse.getMessage());
-                DISPLAY_SERVICE.refreshInformationDisplay(apiResponse);
-            }
+            callbackAfterFetchAction: handleApiResponse
         }
-    )
+    );
 
     const CLOCK = new Clock(
         {

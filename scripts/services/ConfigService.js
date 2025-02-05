@@ -7,7 +7,8 @@ export class ConfigService{
     #configData = {
         apiEndpoint: null,
         apiOptions: null,
-        location: null
+        location: null,
+        weatherConversionTable: null,
     }
     constructor(){
     }
@@ -29,9 +30,9 @@ export class ConfigService{
             this.#configData = {
                 apiEndpoint: fetchedConfig.apiEndpoint,
                 apiOptions: fetchedConfig.apiOptions,
-                location: fetchedConfig.location
+                location: fetchedConfig.location,
+                weatherConversionTable: fetchedConfig.weathers
             };
-            console.log(this.#configData);
             return new ApiResponse(
                 {
                     success: true,
@@ -74,6 +75,10 @@ export class ConfigService{
 
     getCity(){
         return this.#configData.location.cityName;
+    }
+
+    getWeatherConverionTable(){
+        return this.#configData.weatherConversionTable;
     }
 
     reduceOptionValues(values){

@@ -40,7 +40,7 @@ export class Clock{
             this.updateDisplayedTime();
         }
         if(this.#currentTime.getHours() !== this.#previousTime.getHours()){
-            console.log(`clock has fetched data on interval`);
+            console.log(`clock has fetched data hourly on interval at ${this.#currentTime}`);
             this.#callbackOnClockTrigger();
         }
     }

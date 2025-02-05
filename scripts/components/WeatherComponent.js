@@ -9,20 +9,31 @@ import { Converter } from "../utils/Converter.js";
  * manages the following DOM structure :
  * 
  *  <div id="meteo-details">
- *      <span id="temperature"></span> 
- *      <div class="weather-details">
- *          <img id="weather-icon">
+ *      <div class="left-pannel">
+ *          <span id="temperature"></span> 
+ *      <div>
+ *          <span id="humidity"></span>
+ *          <span id="wind"></span>
+ *      </div>
+ *      </div>
+ *      <div class="weather-details right-pannel">
+ *          <div class="image-wrapper">
+ *              <img id="weather-icon">
+ *          </div>
  *          <span id="weather-text"></span>
  *      </div>
- *      <span id="humidity"></span>
- *      <span id="wind"></span>
  *  </div>
  * 
  */
 export class WeatherComponent {
+    #weatherConversionTable = null
+    #assetImagesPath = "../../assets/images"
     #values = {
         temperature: null,
-        weatherCode: null,
+        weather: {
+            description: null,
+            img: null
+        },
         humidity: null,
         windSpeed: null,
         windDirection: null
@@ -37,7 +48,8 @@ export class WeatherComponent {
             wind: null
         }
     };
-    constructor() {
+    constructor(weatherConversionTable) {
+        this.#weatherConversionTable = weatherConversionTable;
         this.#domElements = {
             self: DomEditor.createNewElement({ htmlTag: "div", id: "meteo-details" }),
             dynamicChildren: {
@@ -48,21 +60,47 @@ export class WeatherComponent {
                 wind: DomEditor.createNewElement({ htmlTag: "span", id: "wind" })
             }
         };
+        const meteoLeftPannel = DomEditor.createNewElement(
+            {
+                htmlTag: "div",
+                classes: ["left-pannel"]
+            }
+        );
+        const splitterDiv = DomEditor.createNewElement(
+            {
+                htmlTag: "div",
+                classes: ["left-pannel__subsection"]
+            }
+        );
         const weatherDetailWrapper = DomEditor.createNewElement(
             {
                 htmlTag: "div",
-                classes: ["weather-details"]
+                classes: ["weather-details", "right-pannel"]
             }
         );
+        const imageWrapper = DomEditor.createNewElement(
+            {
+                htmlTag: "div",
+                classes: ["image-wrapper"]
+            }
+        );
+        splitterDiv.append(
+            this.#domElements.dynamicChildren.humidity,
+            this.#domElements.dynamicChildren.wind
+        )
+        meteoLeftPannel.append(
+            this.#domElements.dynamicChildren.temperature,
+            splitterDiv
+
+        )
+        imageWrapper.append(this.#domElements.dynamicChildren.weatherIcon)
         weatherDetailWrapper.append(
-            this.#domElements.dynamicChildren.weatherIcon,
+            imageWrapper,
             this.#domElements.dynamicChildren.weatherText
         )
         this.#domElements.self.append(
-            this.#domElements.dynamicChildren.temperature,
             weatherDetailWrapper,
-            this.#domElements.dynamicChildren.humidity,
-            this.#domElements.dynamicChildren.wind
+            meteoLeftPannel
         )
     }
 
@@ -75,9 +113,13 @@ export class WeatherComponent {
             windDirection
         }
     ) {
+        const parsedWeatherData = Converter.weatherCodeToWeatherInfo({
+            weatherCode: weatherCode,
+            conversionTable: this.#weatherConversionTable
+        })
         this.#values = {
             temperature: temperature,
-            weatherCode: weatherCode,
+            weather: parsedWeatherData,
             humidity: humidity,
             windSpeed: windSpeed,
             windDirection: windDirection
@@ -98,26 +140,26 @@ export class WeatherComponent {
         DomEditor.updateImageContent(
             {
                 imageNode: this.#domElements.dynamicChildren.weatherIcon,
-                imagePath: Converter.weatherTypeToWeatherIcon(this.#values.weather),
-                altText: `${this.#values.weatherCode} icon`
+                imagePath: `${this.#assetImagesPath}/${this.#values.weather.img}`,
+                altText: `missing ${this.#values.weather.description} image`
             }
         );
         DomEditor.updateElementText(
             {
                 node: this.#domElements.dynamicChildren.weatherText,
-                newText: this.#values.weatherCode
+                newText: this.#values.weather.description
             }
         );
         DomEditor.updateElementText(
             {
                 node: this.#domElements.dynamicChildren.humidity,
-                newText: `${this.#values.humidity}%`
+                newText: `Humidity: ${this.#values.humidity}%`
             }
         );
         DomEditor.updateElementText(
             {
                 node: this.#domElements.dynamicChildren.wind,
-                newText: `${this.#values.windSpeed} - ${this.#values.windDirection}`
+                newText: `Wind: ${this.#values.windSpeed}km/h - ${Converter.degreeToDirection(this.#values.windDirection)}`
             }
         );
     }
