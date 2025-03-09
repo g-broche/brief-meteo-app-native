@@ -8,17 +8,15 @@ import { LoaderComponent } from "./components/LoaderComponent.js";
 import { ApiResponse } from "./classes/ApiResponse.js";
 
 const run = async function(){
-
+    try {
     /**
      * Setting up required services and components
      */
-
     const CONFIG_SERVICE = new ConfigService();
     const loadConfigResult = await CONFIG_SERVICE.loadConfig();
 
     if(!loadConfigResult.isSuccess()){
         const message = loadConfigResult.getMessage() ?? "Could not load app config"
-        console.log(message)
         throw new Error(message);
     }
 
@@ -81,6 +79,15 @@ const run = async function(){
         }
     )
     CLOCK.startClockTicker();
+    } catch (error) {
+        console.log(error.message)
+        displayAlert("Application is temporarily unavailable")
+    }
+    
+}
+
+const displayAlert = (message) => {
+    alert(message)
 }
 
 run();
