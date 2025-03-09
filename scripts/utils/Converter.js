@@ -14,7 +14,7 @@ export class Converter{
      * @returns {{description: string, img: string}} description and image name for the inputed code
      */
     static weatherCodeToWeatherInfo({weatherCode, conversionTable}){
-        if(!weatherCode){
+        if(weatherCode === null){
             throw new Error("Error: Missing weather code on weather code to weather info conversion"); 
         }
         if(!conversionTable){

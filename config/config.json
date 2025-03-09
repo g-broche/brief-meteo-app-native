@@ -56,11 +56,11 @@
         },
         "56" : {
             "description": "Light freezing drizzle",
-            "img": "clear-sky.webp"
+            "img": "drizzle.webp"
         },
         "57" : {
             "description": "Dense freezing drizzle",
-            "img": "clear-sky.webp"
+            "img": "drizzle.webp"
         },
         "61" : {
             "description": "Light rain",
