@@ -27,7 +27,7 @@ import { Converter } from "../utils/Converter.js";
  */
 export class WeatherComponent {
     #weatherConversionTable = null
-    #assetImagesPath = "../../assets/images"
+    #assetImagesPath = "./assets/images"
     #values = {
         temperature: null,
         weather: {
