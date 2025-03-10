@@ -7,7 +7,7 @@ import { ApiParameter } from "../classes/ApiParameter.js";
  * different parameters
  */
 export class ConfigService{
-    #configFileLocation = "../../config/config.json"
+    #configFileLocation = "./config/config.json"
     #configData = {
         apiEndpoint: null,
         apiOptions: null,
